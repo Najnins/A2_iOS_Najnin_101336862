@@ -6,6 +6,7 @@
 //
 import Foundation
 
+// Safe unwrap helpers for UI
 extension Product {
     // Safe wrappers to avoid nil issues in UI
     var wrappedName: String {
