@@ -77,11 +77,11 @@ No relationships are used in this project.
 * No duplicate Product ID
 ---
 **How to Run**
-Open project in Xcode
-Make sure Core Data model is correctly set:
-Entity name: Product
-Build the project (Cmd + B)
-Run on iPhone Simulator
+* Open project in Xcode
+* Make sure Core Data model is correctly set:
+* Entity name: Product
+* Build the project (Cmd + B)
+* Run on iPhone Simulator
 ---
 **Summary**
 
