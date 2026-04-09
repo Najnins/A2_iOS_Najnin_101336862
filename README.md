@@ -51,16 +51,17 @@ No relationships are used in this project.
 ---
 ## User Actions
 
-Users can:
-Navigate products (Next / Previous)
-Search products dynamically
-View all products in a list
-Add a new product
- Search Functionality
-Case-insensitive search
-Searches both:
-Product Name
-Product Description
-Results update in real-time
-Add Product Feature
+**Users Can:**
+* Navigate products (Next / Previous)
+* Search products dynamically
+* View all products in a list
+* Add a new product
+
+**Search Functionality**
+* Case-insensitive search
+* Searches both:
+* Product Name
+* Product Description
+* Results update in real-time
+
 
