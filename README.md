@@ -70,3 +70,8 @@ No relationships are used in this project.
 * Enter product details
 * Validate inputs
 * Save new product to Core Data
+
+**  Validation ensures:**
+* No empty fields
+* Valid ID and price
+* No duplicate Product ID
