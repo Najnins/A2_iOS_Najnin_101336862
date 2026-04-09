@@ -1,5 +1,5 @@
 //
-//  A2_iOS_Najnin_101336862App.swift
+//  A2_iOS_Najnin_101336862.swift
 //  A2_iOS_Najnin_101336862
 //
 //  Created by Najnin on 2026-04-04.
@@ -10,7 +10,7 @@ import CoreData
 
 // Entry point of the app
 @main
-struct A2_iOS_Najnin_101336862App: App {
+struct A2_iOS_Najnin_101336862: App {
 
     // Shared Core Data controller
     let persistenceController = PersistenceController.shared
