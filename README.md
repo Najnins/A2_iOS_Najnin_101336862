@@ -75,3 +75,8 @@ No relationships are used in this project.
 * No empty fields
 * Valid ID and price
 * No duplicate Product ID
+---
+**Summary**
+
+This application demonstrates how to use Core Data in an iOS SwiftUI project. It allows users to manage product data efficiently with features like navigation, search, and data insertion. The UI updates automatically when data changes, ensuring a smooth user experience.
+---
