@@ -64,4 +64,9 @@ No relationships are used in this project.
 * Product Description
 * Results update in real-time
 
+**Add Product Feature**
 
+**Users can:**
+* Enter product details
+* Validate inputs
+* Save new product to Core Data
