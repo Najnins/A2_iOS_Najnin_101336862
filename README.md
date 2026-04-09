@@ -76,6 +76,13 @@ No relationships are used in this project.
 * Valid ID and price
 * No duplicate Product ID
 ---
+**How to Run**
+Open project in Xcode
+Make sure Core Data model is correctly set:
+Entity name: Product
+Build the project (Cmd + B)
+Run on iPhone Simulator
+---
 **Summary**
 
 This application demonstrates how to use Core Data in an iOS SwiftUI project. It allows users to manage product data efficiently with features like navigation, search, and data insertion. The UI updates automatically when data changes, ensuring a smooth user experience.
