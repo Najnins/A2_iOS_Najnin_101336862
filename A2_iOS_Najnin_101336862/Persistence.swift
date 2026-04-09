@@ -36,7 +36,7 @@ struct PersistenceController {
             let count = try context.count(for: request)
 
             if count > 0 { return }
-
+          // Insert products into database
             let products: [(Int64, String, String, Double, String)] = [
                 (1, "iPhone 15", "Apple smartphone with advanced camera and fast performance", 1299.99, "Apple"),
                 (2, "MacBook Air", "Lightweight laptop with M-series chip", 1599.99, "Apple"),
