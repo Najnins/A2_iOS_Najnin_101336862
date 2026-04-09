@@ -8,110 +8,90 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+
     // Access Core Data context
     @Environment(\.managedObjectContext) private var viewContext
 
     // Fetch all products sorted by ID
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Product.productID, ascending: true)],
-        animation: .default
-    ) private var products: FetchedResults<Product>
-      // Track current product index, Search input, Show add product screen
-    @State private var currentIndex: Int = 0
-    @State private var searchText: String = ""
-    @State private var showAddProductSheet = false
+        sortDescriptors: [NSSortDescriptor(keyPath: \Product.productID, ascending: true)]
+    )
+    private var products: FetchedResults<Product>
 
-     // Get currently displayed product
+    // Track current product index
+    @State private var currentIndex = 0
+
+    // Search input
+    @State private var searchText = ""
+
+    // Show add product screen
+    @State private var showAddSheet = false
+
+    // Filter products based on search
     var filteredProducts: [Product] {
-        if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if searchText.isEmpty {
             return Array(products)
         }
 
-        return products.filter { product in
-            product.wrappedName.localizedCaseInsensitiveContains(searchText) ||
-            product.wrappedDescription.localizedCaseInsensitiveContains(searchText)
+        return products.filter {
+            $0.wrappedName.localizedCaseInsensitiveContains(searchText) ||
+            $0.wrappedDescription.localizedCaseInsensitiveContains(searchText)
         }
     }
 
+    // Get currently displayed product
     var currentProduct: Product? {
         guard !filteredProducts.isEmpty else { return nil }
-        let safeIndex = min(currentIndex, filteredProducts.count - 1)
-        return filteredProducts[safeIndex]
+        return filteredProducts[min(currentIndex, filteredProducts.count - 1)]
     }
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                TextField("Search by name or description", text: $searchText)
+
+            VStack {
+
+                // 🔍 Search Bar
+                TextField("Search...", text: $searchText)
                     .textFieldStyle(.roundedBorder)
-                    .padding(.horizontal)
-                    .onChange(of: searchText) { _, _ in
-                        currentIndex = 0
-                    }
+                    .padding()
 
                 if let product = currentProduct {
-                    ProductDetailView(product: product)
-                        .padding(.horizontal)
 
-                    HStack(spacing: 20) {
+                    // Show product details
+                    ProductDetailView(product: product)
+
+                    // Navigation buttons
+                    HStack {
                         Button("Previous") {
-                            if currentIndex > 0 {
-                                currentIndex -= 1
-                            }
+                            if currentIndex > 0 { currentIndex -= 1 }
                         }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(currentIndex == 0)
 
                         Button("Next") {
                             if currentIndex < filteredProducts.count - 1 {
                                 currentIndex += 1
                             }
                         }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(currentIndex >= filteredProducts.count - 1)
                     }
-
-                    Text("Showing \(currentIndex + 1) of \(filteredProducts.count)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                } else {
-                    Spacer()
-                    Text("No product found")
-                        .font(.headline)
-                        .foregroundColor(.red)
-                    Spacer()
                 }
 
                 Divider()
 
-                HStack(spacing: 20) {
-                    NavigationLink("View Full Product List") {
+                // Navigation to list + add screen
+                HStack {
+                    NavigationLink("View List") {
                         ProductListView()
                     }
-                    .buttonStyle(.bordered)
 
-                    Button("Add New Product") {
-                        showAddProductSheet = true
+                    Button("Add Product") {
+                        showAddSheet = true
                     }
-                    .buttonStyle(.borderedProminent)
                 }
-
-                Spacer()
             }
-            .padding(.top)
             .navigationTitle("Products")
-            .sheet(isPresented: $showAddProductSheet) {
+            .sheet(isPresented: $showAddSheet) {
                 AddProductView()
                     .environment(\.managedObjectContext, viewContext)
             }
         }
-        .onAppear {
-            currentIndex = 0
-        }
     }
-}
-
-#Preview {
-    ContentView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
 }
