@@ -18,7 +18,7 @@ struct A2_iOS_Najnin_101336862: App {
                 // Inject Core Data managed object context into the environment
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
-                    // Insert default 10 products only once when app launches first time
+                    // Insert default 10 products and only once when app launches first time
                     persistenceController.preloadProductsIfNeeded()
                 }
         }
