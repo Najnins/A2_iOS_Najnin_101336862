@@ -8,17 +8,20 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    // Access Core Data context
     @Environment(\.managedObjectContext) private var viewContext
 
+    // Fetch all products sorted by ID
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Product.productID, ascending: true)],
         animation: .default
     ) private var products: FetchedResults<Product>
-
+      // Track current product index, Search input, Show add product screen
     @State private var currentIndex: Int = 0
     @State private var searchText: String = ""
     @State private var showAddProductSheet = false
 
+     // Get currently displayed product
     var filteredProducts: [Product] {
         if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return Array(products)
