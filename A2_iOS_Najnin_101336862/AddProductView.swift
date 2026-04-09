@@ -62,6 +62,7 @@ struct AddProductView: View {
         }
     }
 
+     // Save new product
     private func saveProduct() {
         guard let idValue = Int64(productID),
               let priceValue = Double(price),
