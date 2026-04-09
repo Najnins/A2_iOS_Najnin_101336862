@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Show Product Details
 struct ProductDetailView: View {
     let product: Product
 
