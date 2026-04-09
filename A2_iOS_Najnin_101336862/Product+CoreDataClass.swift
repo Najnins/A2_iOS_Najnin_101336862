@@ -6,7 +6,7 @@
 //
 import Foundation
 import CoreData
-
+//Create the Product class
 @objc(Product)
 public class Product: NSManagedObject {
 
