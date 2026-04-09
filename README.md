@@ -1,29 +1,29 @@
-A2_iOS_Najnin_101336862
+# A2_iOS_Najnin_101336862
 Author
 
 Najnin Sultana
 Student ID: 101336862
 
- Project Description
+## Project Description
 
 This project is an iOS application developed using SwiftUI and Core Data.
 The application allows users to manage product information including viewing, searching, navigating, and adding new products.
 
 The app demonstrates data persistence using Core Data and dynamic UI updates using SwiftUI.
 
- Features
-✅ Store product data using Core Data
-✅ Automatically insert 10 default products on first launch
-✅ Display the first product when the app starts
-✅ Navigate products using:
-Previous button
-Next button
-✅ Search products by:
-Product Name
-Product Description
-✅ Add new product using a form
-✅ View full list of products (Name + Description)
- Technologies Used
+## Features
+-- Store product data using Core Data
+-- Automatically insert 10 default products on first launch
+-- Display the first product when the app starts
+## Navigate products using:
+-- Previous button
+-- Next button
+## Search products by:
+-- Product Name
+-- Product Description
+-- Add new product using a form
+-- View full list of products (Name + Description)
+## Technologies Used
 Swift
 SwiftUI
 Core Data
@@ -37,7 +37,7 @@ productDescription	String
 price	Double
 provider	String
 
- Important Notes:
+## Important Notes:
 
 productDescription is used instead of description to avoid conflicts with Swift.
 No relationships are used in this project.
