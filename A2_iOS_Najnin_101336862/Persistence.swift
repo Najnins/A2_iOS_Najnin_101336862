@@ -7,50 +7,61 @@
 import Foundation
 import CoreData
 
+// Handles Core Data setup and database operations
 struct PersistenceController {
+
     static let shared = PersistenceController()
 
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
+
+        // Connect to Core Data model (MUST match model file name)
         container = NSPersistentContainer(name: "A2_iOS_Najnin_101336862")
 
+        // Used for testing (optional)
         if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+            container.persistentStoreDescriptions.first?.url =
+                URL(fileURLWithPath: "/dev/null")
         }
 
+        // Load database
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
-                fatalError("Unresolved Core Data error: \(error), \(error.userInfo)")
+                fatalError("Core Data failed: \(error)")
             }
         }
 
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
+    // Insert default 10 products if database is empty
     func preloadProductsIfNeeded() {
+
         let context = container.viewContext
         let request: NSFetchRequest<Product> = Product.fetchRequest()
 
         do {
             let count = try context.count(for: request)
 
+            // If already data exists → do nothing
             if count > 0 { return }
-          // Insert products into database
-            let products: [(Int64, String, String, Double, String)] = [
-                (1, "iPhone 15", "Apple smartphone with advanced camera and fast performance", 1299.99, "Apple"),
-                (2, "MacBook Air", "Lightweight laptop with M-series chip", 1599.99, "Apple"),
-                (3, "iPad Air", "Powerful tablet for study and entertainment", 899.99, "Apple"),
-                (4, "AirPods Pro", "Wireless earbuds with noise cancellation", 329.99, "Apple"),
-                (5, "Apple Watch", "Smart watch for fitness and notifications", 599.99, "Apple"),
-                (6, "Galaxy S24", "Samsung flagship smartphone with AMOLED display", 1199.99, "Samsung"),
-                (7, "Galaxy Tab", "Android tablet for work and media", 749.99, "Samsung"),
-                (8, "Dell XPS 13", "Premium ultrabook with sleek design", 1499.99, "Dell"),
-                (9, "Sony Headphones", "Over-ear headphones with rich sound", 249.99, "Sony"),
-                (10, "Logitech Mouse", "Wireless ergonomic mouse for daily use", 59.99, "Logitech")
+
+            let defaultProducts = [
+                (1, "iPhone 15", "Apple smartphone", 1299.99, "Apple"),
+                (2, "MacBook Air", "Lightweight laptop", 1599.99, "Apple"),
+                (3, "iPad Air", "Tablet device", 899.99, "Apple"),
+                (4, "AirPods Pro", "Wireless earbuds", 329.99, "Apple"),
+                (5, "Apple Watch", "Smartwatch", 599.99, "Apple"),
+                (6, "Galaxy S24", "Samsung phone", 1199.99, "Samsung"),
+                (7, "Galaxy Tab", "Android tablet", 749.99, "Samsung"),
+                (8, "Dell XPS 13", "Ultrabook", 1499.99, "Dell"),
+                (9, "Sony Headphones", "Audio device", 249.99, "Sony"),
+                (10, "Logitech Mouse", "Wireless mouse", 59.99, "Logitech")
             ]
 
-            for item in products {
+            // Insert products into database
+            for item in defaultProducts {
                 let product = Product(context: context)
                 product.productID = item.0
                 product.name = item.1
@@ -60,8 +71,9 @@ struct PersistenceController {
             }
 
             try context.save()
+
         } catch {
-            print("Failed to preload products: \(error.localizedDescription)")
+            print("Preload failed: \(error.localizedDescription)")
         }
     }
 }
